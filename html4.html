@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" name="author" content="Viola">
+
+        <style>
+            div {position:absolute;width: 50%;height: 800px}
+            img {position:absolute}
+            #rightSide{left: 50%;border-left: 2px solid black}
+        </style>
+
+    <title>Matching Game</title>
+  </head>
+  <body onload="generateFaces()">
+    <h1>MATCHING GAME!</h1>
+    <p>Click on the extra smiling face on the left</p>
+
+      <div id="leftSide"></div>
+      <div id="rightSide"></div>
+  <script>
+          var number_of_faces=5; score=0;
+          var theLeftSide = document.getElementById("leftSide");
+          var theRightSide = document.getElementById("rightSide");
+
+          function generateFaces() {
+          while(theLeftSide.firstChild){
+                      theLeftSide.removeChild(theLeftSide.firstChild);	}
+  		    while(theRightSide.firstChild){
+                      theRightSide.removeChild(theRightSide.firstChild);	}
+
+          for(var i=0;i<number_of_faces;i++){
+          var theImg = document.createElement("img");
+          theImg.src = "https://home.cse.ust.hk/~rossiter/mooc/matching_game/smile.png";
+          var random_number = Math.random()*700;
+          var random_number_integer = Math.floor(random_number);
+          theImg.style.top=random_number_integer+"px";
+          var random_number1 = Math.random()*700;
+          var random_number_integer1 = Math.floor(random_number1);
+          theImg.style.left=random_number_integer1+"px";
+          theLeftSide.appendChild(theImg); }
+
+          var leftSideImages=theLeftSide.cloneNode(true);
+		      leftSideImages.removeChild(leftSideImages.lastChild);
+		      theRightSide.appendChild(leftSideImages);
+
+          var theBody = document.getElementsByTagName("body")[0];
+          theLeftSide.lastChild.onclick=function nextLevel(event){
+          event.stopPropagation();
+          number_of_faces += 5;
+          score=score+1;
+          generateFaces();
+          };
+
+          theBody.onclick = function gameOver() {alert("Game Over!"+" You did "+score+" succesful attempts");
+          theBody.onclick = null;
+          theLeftSide.lastChild.onclick = null;}
+          }
+        </script>
+  </body>
+</html>
